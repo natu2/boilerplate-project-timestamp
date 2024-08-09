@@ -28,8 +28,8 @@ app.get(
       req.params.date
         ? (inputDate = new Date(req.params.date))
         : (inputDate = new Date());
-      req.utc = inputDate.toString();
-      req.unix = Math.floor(inputDate.getTime() / 1000);
+      req.utc = inputDate.toUTCString();
+      req.unix = inputDate.getTime();
       req.error = "";
     } catch (e) {
       req.error = "invalid date";
