@@ -40,8 +40,8 @@ app.get(
   (req, res) => {
     //TODO use time key from req to send correct time
     req.error == ""
-      ? res.send({ unix: req.unix, utc: req.utc })
-      : res.send({ error: req.error });
+      ? res.json({ unix: req.unix, utc: req.utc })
+      : res.json({ error: req.error });
   }
 );
 
