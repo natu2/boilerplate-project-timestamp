@@ -22,25 +22,34 @@ app.get("/", function (req, res) {
 app.get(
   "/api/:date?",
   (req, res, next) => {
-    //TODO parse time and add time key to req
-    try {
-      let inputDate;
-      req.params.date
-        ? (inputDate = new Date(req.params.date))
-        : (inputDate = new Date());
-      req.utc = inputDate.toUTCString();
-      req.unix = inputDate.getTime();
+    let inputDate;
+    let urlDate = req.params.date;
+    if (urlDate) {
+      if (new Date(urlDate) != "Invalid Date") {
+        inputDate = new Date(urlDate);
+        req.error = "";
+      } else {
+        if (new Date(Number(urlDate)) != "Invalid Date") {
+          inputDate = new Date(Number(urlDate));
+          req.error = "";
+        } else {
+          req.error = "Invalid Date";
+        }
+      }
+    } else {
+      inputDate = new Date();
       req.error = "";
-    } catch (e) {
-      req.error = "invalid date";
-    } finally {
-      next();
     }
+    req.inputDate = inputDate;
+    next();
   },
   (req, res) => {
     //TODO use time key from req to send correct time
     req.error == ""
-      ? res.json({ unix: req.unix, utc: req.utc })
+      ? res.json({
+          unix: req.inputDate.getTime(),
+          utc: req.inputDate.toUTCString(),
+        })
       : res.json({ error: req.error });
   }
 );
