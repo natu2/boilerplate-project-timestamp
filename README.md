@@ -9,8 +9,6 @@ This is a Timestamp Microservice that returns both the Unix timestamp and the da
 ![image](https://github.com/user-attachments/assets/ac517a95-75d1-4234-ae23-2f77993d28f5)
 
 
-
-## Install & Run
 ## Instal & Run 
 1. Clone the repository to your local machine
 2. Use the command 'npm run start' in your terminal.
